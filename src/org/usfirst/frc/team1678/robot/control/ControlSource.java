@@ -82,7 +82,7 @@ public interface ControlSource<T> {
 
 	public T read();
 
-	public default ControlSource<T> filter(Filter<T> filter) {
-		return new FilteredControlSource<T>(filter, this);
-	}
+//	public default ControlSource<T> filter(Filter<T> filter) {
+//		return new FilteredControlSource<T>(filter, this);
+//	}
 }

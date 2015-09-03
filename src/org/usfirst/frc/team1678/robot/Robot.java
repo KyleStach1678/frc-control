@@ -5,7 +5,11 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team1678.robot.commands.DriveDistanceCommand;
 import org.usfirst.frc.team1678.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team1678.robot.subsystems.ElevatorSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -17,6 +21,7 @@ import org.usfirst.frc.team1678.robot.subsystems.DriveSubsystem;
 public class Robot extends IterativeRobot {
 
 	public static final DriveSubsystem drive = new DriveSubsystem();
+	public static final ElevatorSubsystem elevator = new ElevatorSubsystem();
 	public static OI oi;
 
     Command autonomousCommand;
@@ -27,6 +32,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		SmartDashboard.putData("Drive distance", new DriveDistanceCommand(1000));
         // instantiate the command used for the autonomous period
         // autonomousCommand = new ExampleCommand();
     }
