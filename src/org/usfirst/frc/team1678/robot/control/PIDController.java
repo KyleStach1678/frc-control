@@ -7,7 +7,7 @@ public class PIDController extends Controller<Double, Double> {
 	double tolerance;
 	double goal;
 
-	PIDController(ControlSource<Double> source, ControlOutput<Double> output, double kP, double kI, double kD,
+	public PIDController(ControlSource<Double> source, ControlOutput<Double> output, double kP, double kI, double kD,
 			double tolerance) {
 		super(source, output);
 		last = 0;

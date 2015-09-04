@@ -40,16 +40,4 @@ public abstract class Controller<SourceType, OutputType> {
 	 * @return Whether or not the controller has finished
 	 */
 	protected abstract boolean isFinished();
-
-	/**
-	 * ControlOutput An interface to be implemented by actuators used in
-	 * controllers.
-	 * 
-	 * @author Kyle
-	 * @param <T>
-	 *            The variable type to feed to the actuator
-	 */
-	public interface ControlOutput<T> {
-		public void set(T value);
-	}
 }

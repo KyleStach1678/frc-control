@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1678.robot.commands.CalibrateElevatorCommand;
 import org.usfirst.frc.team1678.robot.commands.DriveDistanceCommand;
 import org.usfirst.frc.team1678.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1678.robot.subsystems.ElevatorSubsystem;
@@ -24,7 +25,7 @@ public class Robot extends IterativeRobot {
 	public static final ElevatorSubsystem elevator = new ElevatorSubsystem();
 	public static OI oi;
 
-    Command autonomousCommand;
+    Command autonomousCommand = new CalibrateElevatorCommand();
 
     /**
      * This function is run when the robot is first started up and should be

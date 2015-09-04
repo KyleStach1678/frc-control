@@ -65,6 +65,13 @@ public interface ControlSource<T> {
 		}
 	}
 
+	/**
+	 * A source that gets run through a filter
+	 * 
+	 * @author Kyle
+	 *
+	 * @param <T>
+	 */
 	public class FilteredControlSource<T> implements ControlSource<T> {
 		ControlSource<T> source;
 		Filter<T> filter;
@@ -80,9 +87,22 @@ public interface ControlSource<T> {
 		}
 	}
 
+	/**
+	 * This should be implemented to get the value from the sensor
+	 * 
+	 * @return The value from the sensor
+	 */
 	public T read();
 
-//	public default ControlSource<T> filter(Filter<T> filter) {
-//		return new FilteredControlSource<T>(filter, this);
-//	}
+	/**
+	 * Filter the source using an implementation of Filter
+	 * 
+	 * @param filter
+	 *            The filter to use
+	 * @return A FilteredControlSource that filters this sensor's output through
+	 *         the filter
+	 */
+	public default ControlSource<T> filter(Filter<T> filter) {
+		return new FilteredControlSource<T>(filter, this);
+	}
 }
