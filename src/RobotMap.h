@@ -9,15 +9,26 @@
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
- 
-// For example to map the left and right motors, you could define the
-// following variables to use with your drivetrain subsystem.
-//const int LEFTMOTOR = 1;
-//const int RIGHTMOTOR = 2;
 
-// If you are using multiple modules, make sure to define both the port
-// number and the module. For example you with a rangefinder:
-//const int RANGE_FINDER_PORT = 1;
-//const int RANGE_FINDER_MODULE = 1;
+namespace RobotMap {
+const int lowGear = 1;
+const int highGear = 2;
+
+const int leftDrivePorts[] = {1, 8};
+const int rightDrivePorts[] = {2, 7};
+const int elevatorMotor = 5;
+
+const int leftDriverStick = 0;
+const int rightDriverStick = 1;
+
+const int elevatorEncoders[] = {14, 15};
+const int leftDriveEncoders[] = {12, 13};
+const int rightDriveEncoders[] = {10, 11};
+
+const int elevatorHallSensor = 0;
+
+const int bottomElevatorProximity = 0;
+const int topElevatorProximity = 1;
+}
 
 #endif

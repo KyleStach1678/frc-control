@@ -3,24 +3,24 @@
 
 #include <string>
 #include "Commands/Command.h"
-#include "Subsystems/ExampleSubsystem.h"
+#include "Subsystems/DriveSubsystem.h"
 #include "OI.h"
 #include "WPILib.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
  * CommandBase stores creates and stores each control system. To access a
- * subsystem elsewhere in your code in your code use CommandBase.examplesubsystem
+ * subsystem elsewhere in your code in your code use
+ * CommandBase.examplesubsystem
  */
-class CommandBase: public Command
-{
-public:
-	CommandBase(char const *name);
-	CommandBase();
-	static void init();
-	// Create a single static instance of all of your subsystems
-	static ExampleSubsystem *examplesubsystem;
-	static OI *oi;
+class CommandBase : public Command {
+ public:
+  CommandBase(char const *name);
+  CommandBase();
+  static void init();
+  // Create a single static instance of all of your subsystems
+  static DriveSubsystem *driveSubsystem;
+  static OI *oi;
 };
 
 #endif
