@@ -1,2 +1,3 @@
 # frc-control
-A bunch of control packages in Java for FRC.
+The rewriting of frc-control in C++ for a valid use - case comparision.
+Team 1678 Citrus Circuits
