@@ -3,6 +3,7 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include <Utils/unitscpp.h>
 
 class DriveSubsystem : public Subsystem {
  private:
@@ -14,11 +15,11 @@ class DriveSubsystem : public Subsystem {
  public:
   DriveSubsystem();
   void InitDefaultCommand() override;
-  void Drive(double forward, double turn);
+  void Drive(Velocity forward, AngularVelocity turn);
   void ShiftGear(bool high);
   bool IsHighGear();
-  double getLeftEncoderClicks();
-  double getRightEncoderClicks();
+  Length getLeftEncoderDistance();
+  Length getRightEncoderDistance();
 };
 
 #endif

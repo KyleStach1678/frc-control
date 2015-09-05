@@ -21,8 +21,10 @@ void DriveSubsystem::InitDefaultCommand() {
   SetDefaultCommand(new TeleopDriveCommand());
 }
 
-void DriveSubsystem::Drive(double forward, double turn) {
-  drive->TankDrive(forward + turn, forward - turn);
+void DriveSubsystem::Drive(Velocity forward, AngularVelocity turn) {
+  drive->TankDrive(
+      (forward / maxHighRobotSpeed + turn / maxHighRobotAngularVelocity)(),
+      (forward / maxHighRobotSpeed - turn / maxHighRobotAngularVelocity)());
 }
 
 void DriveSubsystem::ShiftGear(bool high) {
@@ -33,6 +35,10 @@ void DriveSubsystem::ShiftGear(bool high) {
 
 bool DriveSubsystem::IsHighGear() { return currentGear; }
 
-double DriveSubsystem::getLeftEncoderClicks() { return encLeft->Get(); }
+Length DriveSubsystem::getLeftEncoderDistance() {
+  return encLeft->Get() * click;
+}
 
-double DriveSubsystem::getRightEncoderClicks() { return encRight->Get(); }
+Length DriveSubsystem::getRightEncoderDistance() {
+  return encRight->Get() * click;
+}
