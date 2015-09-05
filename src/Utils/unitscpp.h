@@ -6,216 +6,240 @@
 #include <string>
 #include <cassert>
 
-typedef double NT;  // Number Type
+typedef double NT; // Number Type
 
 template <int U1, int U2, int U3, int U4>
-class Units {
- public:
-  Units(NT value_ = NT(0)) : value(value_) {}
+class Units
+{
+  public:
+	Units(NT value_ = NT(0)) : value(value_)
+	{
+	}
 
-  // This turns the class into a function object that allows
-  // the user to easily get at the value.
-  NT operator()() const { return value; }
+	// This turns the class into a function object that allows
+	// the user to easily get at the value.
+	NT operator()() const
+	{
+		return value;
+	}
 
-  // Helper function to get a text representation of the
-  // object's dimensions.  It is static because the
-  // representation is known at compile time.
-  static std::string dim(void) {
-    std::stringstream s;
-    s << "<" << U1 << "," << U2 << "," << U3 << "," << U4 << ">";
-    return s.str();
-  }
+	// Helper function to get a text representation of the
+	// object's dimensions.  It is static because the
+	// representation is known at compile time.
+	static std::string dim(void)
+	{
+		std::stringstream s;
+		s << "<" << U1 << "," << U2 << "," << U3 << "," << U4 << ">";
+		return s.str();
+	}
 
-  // Helper function for unit conversions.
-  NT to(const Units& u) const { return value / u(); }
+	// Helper function for unit conversions.
+	NT to(const Units& u) const
+	{
+		return value / u();
+	}
 
-  Units& operator=(const Units& rhs) {
-    value = rhs();
-    return *this;
-  }
+	Units& operator=(const Units& rhs)
+	{
+		value = rhs();
+		return *this;
+	}
 
-  // Arithmetic operators
-  Units& operator+=(const Units& rhs) {
-    value += rhs.value;
-    return *this;
-  }
+	// Arithmetic operators
+	Units& operator+=(const Units& rhs)
+	{
+		value += rhs.value;
+		return *this;
+	}
 
-  Units& operator-=(const Units& rhs) {
-    value -= rhs.value;
-    return *this;
-  }
+	Units& operator-=(const Units& rhs)
+	{
+		value -= rhs.value;
+		return *this;
+	}
 
-  Units& operator*=(const NT& rhs) {
-    value *= rhs;
-    return *this;
-  }
+	Units& operator*=(const NT& rhs)
+	{
+		value *= rhs;
+		return *this;
+	}
 
-  Units& operator/=(const NT& rhs) {
-    value /= rhs;
-    return *this;
-  }
+	Units& operator/=(const NT& rhs)
+	{
+		value /= rhs;
+		return *this;
+	}
 
- private:
-  NT value;
+  private:
+	NT value;
 };
 
 // Addition
 template <int U1, int U2, int U3, int U4>
-const Units<U1, U2, U3, U4> operator+(const Units<U1, U2, U3, U4>& lhs,
-                                      const Units<U1, U2, U3, U4>& rhs) {
-  return Units<U1, U2, U3, U4>(lhs() + rhs());
+const Units<U1, U2, U3, U4> operator+(const Units<U1, U2, U3, U4>& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return Units<U1, U2, U3, U4>(lhs() + rhs());
 }
 
 // Subtraction
 template <int U1, int U2, int U3, int U4>
-const Units<U1, U2, U3, U4> operator-(const Units<U1, U2, U3, U4>& lhs,
-                                      const Units<U1, U2, U3, U4>& rhs) {
-  return Units<U1, U2, U3, U4>(lhs() - rhs());
+const Units<U1, U2, U3, U4> operator-(const Units<U1, U2, U3, U4>& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return Units<U1, U2, U3, U4>(lhs() - rhs());
 }
 
 // Multiplication
 template <int U1, int U2, int U3, int U4>
-const Units<U1, U2, U3, U4> operator*(const NT& lhs,
-                                      const Units<U1, U2, U3, U4>& rhs) {
-  return Units<U1, U2, U3, U4>(lhs * rhs());
+const Units<U1, U2, U3, U4> operator*(const NT& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return Units<U1, U2, U3, U4>(lhs * rhs());
 }
 
 template <int U1, int U2, int U3, int U4>
-const Units<U1, U2, U3, U4> operator*(const Units<U1, U2, U3, U4>& lhs,
-                                      const NT& rhs) {
-  return rhs * lhs;
+const Units<U1, U2, U3, U4> operator*(const Units<U1, U2, U3, U4>& lhs, const NT& rhs)
+{
+	return rhs * lhs;
 }
 
-template <int U1a, int U2a, int U3a, int U4a, int U1b, int U2b, int U3b,
-          int U4b>
-const Units<U1a + U1b, U2a + U2b, U3a + U3b, U4a + U4b> operator*(
-    const Units<U1a, U2a, U3a, U4a>& lhs,
-    const Units<U1b, U2b, U3b, U4b>& rhs) {
-  return Units<U1a + U1b, U2a + U2b, U3a + U3b, U4a + U4b>(lhs() * rhs());
+template <int U1a, int U2a, int U3a, int U4a, int U1b, int U2b, int U3b, int U4b>
+const Units<U1a + U1b, U2a + U2b, U3a + U3b, U4a + U4b> operator*(const Units<U1a, U2a, U3a, U4a>& lhs, const Units<U1b, U2b, U3b, U4b>& rhs)
+{
+	return Units<U1a + U1b, U2a + U2b, U3a + U3b, U4a + U4b>(lhs() * rhs());
 }
 
 // Division
 template <int U1, int U2, int U3, int U4>
-const Units<U1, U2, U3, U4> operator/(const Units<U1, U2, U3, U4>& lhs,
-                                      const NT& rhs) {
-  return Units<U1, U2, U3, U4>(lhs() / rhs);
+const Units<U1, U2, U3, U4> operator/(const Units<U1, U2, U3, U4>& lhs, const NT& rhs)
+{
+	return Units<U1, U2, U3, U4>(lhs() / rhs);
 }
 
 template <int U1, int U2, int U3, int U4>
-const Units<-U1, -U2, -U3, -U4> operator/(const NT& lhs,
-                                          const Units<U1, U2, U3, U4>& rhs) {
-  return Units<-U1, -U2, -U3, -U4>(lhs / rhs());
+const Units<-U1, -U2, -U3, -U4> operator/(const NT& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return Units<-U1, -U2, -U3, -U4>(lhs / rhs());
 }
 
-template <int U1a, int U2a, int U3a, int U4a, int U1b, int U2b, int U3b,
-          int U4b>
-const Units<U1a - U1b, U2a - U2b, U3a - U3b, U4a - U4b> operator/(
-    const Units<U1a, U2a, U3a, U4a>& lhs,
-    const Units<U1b, U2b, U3b, U4b>& rhs) {
-  return Units<U1a - U1b, U2a - U2b, U3a - U3b, U4a - U4b>(lhs() / rhs());
+template <int U1a, int U2a, int U3a, int U4a, int U1b, int U2b, int U3b, int U4b>
+const Units<U1a - U1b, U2a - U2b, U3a - U3b, U4a - U4b> operator/(const Units<U1a, U2a, U3a, U4a>& lhs, const Units<U1b, U2b, U3b, U4b>& rhs)
+{
+	return Units<U1a - U1b, U2a - U2b, U3a - U3b, U4a - U4b>(lhs() / rhs());
 }
 
 // Comparisons and ordering
 template <int U1, int U2, int U3, int U4>
-bool operator==(const Units<U1, U2, U3, U4>& lhs,
-                const Units<U1, U2, U3, U4>& rhs) {
-  return (lhs() == rhs());
+bool operator==(const Units<U1, U2, U3, U4>& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return (lhs() == rhs());
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator==(const Units<U1, U2, U3, U4>& lhs, const NT& rhs) {
-  return (lhs() == rhs);
+bool operator==(const Units<U1, U2, U3, U4>& lhs, const NT& rhs)
+{
+	return (lhs() == rhs);
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator==(const NT& lhs, const Units<U1, U2, U3, U4>& rhs) {
-  return (lhs == rhs());
+bool operator==(const NT& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return (lhs == rhs());
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator!=(const Units<U1, U2, U3, U4>& lhs,
-                const Units<U1, U2, U3, U4>& rhs) {
-  return not(lhs() == rhs());
+bool operator!=(const Units<U1, U2, U3, U4>& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return not(lhs() == rhs());
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator!=(const Units<U1, U2, U3, U4>& lhs, const NT& rhs) {
-  return not(lhs() == rhs);
+bool operator!=(const Units<U1, U2, U3, U4>& lhs, const NT& rhs)
+{
+	return not(lhs() == rhs);
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator!=(const NT& lhs, const Units<U1, U2, U3, U4>& rhs) {
-  return not(lhs == rhs());
+bool operator!=(const NT& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return not(lhs == rhs());
 }
 
 // Ordering
 template <int U1, int U2, int U3, int U4>
-bool operator<=(const Units<U1, U2, U3, U4>& lhs,
-                const Units<U1, U2, U3, U4>& rhs) {
-  return lhs() <= rhs();
+bool operator<=(const Units<U1, U2, U3, U4>& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return lhs() <= rhs();
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator<=(const Units<U1, U2, U3, U4>& lhs, const NT& rhs) {
-  return (lhs() <= rhs);
+bool operator<=(const Units<U1, U2, U3, U4>& lhs, const NT& rhs)
+{
+	return (lhs() <= rhs);
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator<=(const NT& lhs, const Units<U1, U2, U3, U4>& rhs) {
-  return (lhs <= rhs());
+bool operator<=(const NT& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return (lhs <= rhs());
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator>=(const Units<U1, U2, U3, U4>& lhs,
-                const Units<U1, U2, U3, U4>& rhs) {
-  return lhs() >= rhs();
+bool operator>=(const Units<U1, U2, U3, U4>& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return lhs() >= rhs();
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator>=(const Units<U1, U2, U3, U4>& lhs, const NT& rhs) {
-  return (lhs() >= rhs);
+bool operator>=(const Units<U1, U2, U3, U4>& lhs, const NT& rhs)
+{
+	return (lhs() >= rhs);
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator>=(const NT& lhs, const Units<U1, U2, U3, U4>& rhs) {
-  return (lhs >= rhs());
+bool operator>=(const NT& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return (lhs >= rhs());
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator<(const Units<U1, U2, U3, U4>& lhs,
-               const Units<U1, U2, U3, U4>& rhs) {
-  return lhs() < rhs();
+bool operator<(const Units<U1, U2, U3, U4>& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return lhs() < rhs();
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator<(const Units<U1, U2, U3, U4>& lhs, const NT& rhs) {
-  return (lhs() < rhs);
+bool operator<(const Units<U1, U2, U3, U4>& lhs, const NT& rhs)
+{
+	return (lhs() < rhs);
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator<(const NT& lhs, const Units<U1, U2, U3, U4>& rhs) {
-  return (lhs < rhs());
+bool operator<(const NT& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return (lhs < rhs());
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator>(const Units<U1, U2, U3, U4>& lhs,
-               const Units<U1, U2, U3, U4>& rhs) {
-  return lhs() > rhs();
+bool operator>(const Units<U1, U2, U3, U4>& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return lhs() > rhs();
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator>(const Units<U1, U2, U3, U4>& lhs, const NT& rhs) {
-  return (lhs() > rhs);
+bool operator>(const Units<U1, U2, U3, U4>& lhs, const NT& rhs)
+{
+	return (lhs() > rhs);
 }
 
 template <int U1, int U2, int U3, int U4>
-bool operator>(const NT& lhs, const Units<U1, U2, U3, U4>& rhs) {
-  return (lhs > rhs());
+bool operator>(const NT& lhs, const Units<U1, U2, U3, U4>& rhs)
+{
+	return (lhs > rhs());
 }
 
 template <int U1, int U2, int U3, int U4>
-std::ostream& operator<<(std::ostream& s, const Units<U1, U2, U3, U4>& rhs) {
-  return s << rhs();
+std::ostream& operator<<(std::ostream& s, const Units<U1, U2, U3, U4>& rhs)
+{
+	return s << rhs();
 }
 
 // Typedefs for fundamental units
@@ -252,7 +276,6 @@ const Time hour = 3600 * s;
 const Length robotWidth = 1.5 * ft;
 const Velocity maxHighRobotSpeed = 15 * ft / s;
 const Velocity maxLowRobotSpeed = 5 * ft / s;
-const AngularVelocity maxHighRobotAngularVelocity =
-    2 * maxHighRobotSpeed / (robotWidth / 2) * rad;
+const AngularVelocity maxHighRobotAngularVelocity = 2 * maxHighRobotSpeed / (robotWidth / 2) * rad;
 
-#endif  //#ifndef unitscpp_h
+#endif //#ifndef unitscpp_h

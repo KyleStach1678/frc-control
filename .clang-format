@@ -1,0 +1,15 @@
+BasedOnStyle: LLVM
+ColumnLimit: 150
+Cpp11BracedListStyle: true
+PointerBindsToType: true
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+Standard: Cpp11
+TabWidth: 4
+IndentWidth: 4
+UseTab: Always
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+BinPackParameters: false
+BreakBeforeBraces: Linux
+AlwaysBreakTemplateDeclarations: true

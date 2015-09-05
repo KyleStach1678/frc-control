@@ -5,21 +5,22 @@
 #include "WPILib.h"
 #include <Utils/unitscpp.h>
 
-class DriveSubsystem : public Subsystem {
- private:
-  std::unique_ptr<RobotDrive> drive;
-  DoubleSolenoid *shifting;
-  Encoder *encLeft, *encRight;
-  bool currentGear = false;
+class DriveSubsystem : public Subsystem
+{
+  private:
+	std::unique_ptr<RobotDrive> drive;
+	DoubleSolenoid* shifting;
+	Encoder *encLeft, *encRight;
+	bool currentGear = false;
 
- public:
-  DriveSubsystem();
-  void InitDefaultCommand() override;
-  void Drive(Velocity forward, AngularVelocity turn);
-  void ShiftGear(bool high);
-  bool IsHighGear();
-  Length getLeftEncoderDistance();
-  Length getRightEncoderDistance();
+  public:
+	DriveSubsystem();
+	void InitDefaultCommand() override;
+	void Drive(Velocity forward, AngularVelocity turn);
+	void ShiftGear(bool high);
+	bool IsHighGear();
+	Length getLeftEncoderDistance();
+	Length getRightEncoderDistance();
 };
 
 #endif

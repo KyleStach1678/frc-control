@@ -4,12 +4,12 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-class ExampleSubsystem: public Subsystem
+class ExampleSubsystem : public Subsystem
 {
-private:
+  private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-public:
+  public:
 	ExampleSubsystem();
 	void InitDefaultCommand();
 };

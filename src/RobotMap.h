@@ -10,7 +10,8 @@
  * floating around.
  */
 
-namespace RobotMap {
+namespace RobotMap
+{
 const int lowGear = 1;
 const int highGear = 2;
 

@@ -3,23 +3,24 @@
 #include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
 
-class Robot : public IterativeRobot {
- private:
-  Command *autonomousCommand;
-  LiveWindow *lw;
+class Robot : public IterativeRobot
+{
+  private:
+	Command* autonomousCommand;
+	LiveWindow* lw;
 
- public:
-  void RobotInit();
+  public:
+	void RobotInit();
 
-  void DisabledPeriodic();
+	void DisabledPeriodic();
 
-  void AutonomousInit();
+	void AutonomousInit();
 
-  void AutonomousPeriodic();
+	void AutonomousPeriodic();
 
-  void TeleopInit();
+	void TeleopInit();
 
-  void TeleopPeriodic();
+	void TeleopPeriodic();
 
-  void TestPeriodic();
+	void TestPeriodic();
 };

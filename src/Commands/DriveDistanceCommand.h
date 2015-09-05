@@ -5,18 +5,19 @@
 #include "WPILib.h"
 #include <Utils/unitscpp.h>
 
-class DriveDistanceCommand : public CommandBase {
-  Length distanceClicks;
-  Length offsetStart;
-  Velocity speed;
+class DriveDistanceCommand : public CommandBase
+{
+	Length distanceClicks;
+	Length offsetStart;
+	Velocity speed;
 
- public:
-  DriveDistanceCommand(Length meters, Velocity speed = .5 * m / s);
-  void Initialize();
-  void Execute();
-  bool IsFinished();
-  void End();
-  void Interrupted();
+  public:
+	DriveDistanceCommand(Length meters, Velocity speed = .5 * m / s);
+	void Initialize();
+	void Execute();
+	bool IsFinished();
+	void End();
+	void Interrupted();
 };
 
 #endif

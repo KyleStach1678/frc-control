@@ -13,14 +13,15 @@
  * subsystem elsewhere in your code in your code use
  * CommandBase.examplesubsystem
  */
-class CommandBase : public Command {
- public:
-  CommandBase(char const *name);
-  CommandBase();
-  static void init();
-  // Create a single static instance of all of your subsystems
-  static DriveSubsystem *driveSubsystem;
-  static OI *oi;
+class CommandBase : public Command
+{
+  public:
+	CommandBase(char const* name);
+	CommandBase();
+	static void init();
+	// Create a single static instance of all of your subsystems
+	static DriveSubsystem* driveSubsystem;
+	static OI* oi;
 };
 
 #endif
