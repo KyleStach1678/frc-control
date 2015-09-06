@@ -13,29 +13,32 @@
 namespace Citrus
 {
 
+template <typename OutputSourceType, typename InputSourceType = OutputSourceType>
+class FilteredControlSource;
+
 template <typename SourceType>
 class ControlSource
 {
   public:
 	ControlSource(){};
 	virtual ~ControlSource(){};
-	virtual SourceType read() = 0;
+	virtual SourceType read() const = 0;
 	template <typename NewSourceType>
-	FilteredControlSource<NewSourceType> filter(Filter<SourceType, NewSourceType> filter)
+	FilteredControlSource<NewSourceType> filter(Filter<SourceType, NewSourceType> filter) const
 	{
 		return FilteredControlSource<NewSourceType, SourceType>(*this, filter);
 	}
 };
 
-template <typename OutputSourceType, typename InputSourceType = OutputSourceType>
+template <typename OutputSourceType, typename InputSourceType>
 class FilteredControlSource : public ControlSource<OutputSourceType>
 {
 	Filter<InputSourceType, OutputSourceType> filter;
 	ControlSource<InputSourceType> source;
 
   public:
-	FilteredControlSource virtual ~FilteredControlSource();
-	virtual SourceType read() override
+	virtual ~FilteredControlSource();
+	virtual InputSourceType read() const override
 	{
 		return filter.Filter(source.read());
 	}

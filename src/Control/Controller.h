@@ -10,7 +10,7 @@
 
 #include "ControlSource.h"
 #include "ControlOutput.h"
-#include <Utils/unitscpp.h>
+#include "../Utils/unitscpp.h"
 
 namespace Citrus
 {
@@ -18,26 +18,26 @@ namespace Citrus
 template <typename SourceType, typename OutputType>
 class Controller
 {
-	ControlSource<SourceType> source;
-	ControlOutput<OutputType> output;
+	const ControlSource<SourceType>& source;
+	const ControlOutput<OutputType>& output;
 
   public:
-	Controller(ControlSource<SourceType> source, ControlOutput<OutputType> output) : source(source), output(output)
+	Controller(const ControlSource<SourceType>& source, const ControlOutput<OutputType>& output) : source(source), output(output)
 	{
 	}
-	virtual ~Controller();
+	virtual ~Controller(){};
 	void Update(Time dt)
 	{
 		SourceType sensorValue = source.read();
-		OutputType actuatorValue = calculate(sensorValue());
+		OutputType actuatorValue = Calculate(sensorValue, dt);
 		output.set(actuatorValue);
 	}
 
   protected:
 	virtual OutputType Calculate(SourceType input, Time dt) = 0;
-	virtual bool Start() = 0;
+	virtual void Start(){};
 	virtual bool IsFinished() = 0;
-	virtual bool Stop() = 0;
+	virtual void Stop(){};
 };
 
 } /* namespace Citrus */

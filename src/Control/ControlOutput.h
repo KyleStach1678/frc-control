@@ -15,9 +15,8 @@ template <typename OutputType>
 class ControlOutput
 {
   public:
-	ControlOutput();
-	virtual ~ControlOutput();
-	virtual OutputType set(OutputType value) = 0;
+	virtual ~ControlOutput(){};
+	virtual OutputType set(OutputType value) const = 0;
 };
 
 } /* namespace Citrus */
