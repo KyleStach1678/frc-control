@@ -9,35 +9,58 @@
 #define CONTROL_PIDCONTROLLER_H_
 
 #include "Controller.h"
+#include "../Utils/unitscpp.h"
 
 namespace Citrus
 {
 
-class PIDController : public Controller<double, double>
+template <typename InputUnit, typename OutputUnit>
+class PIDController : public Controller<InputUnit, OutputUnit>
 {
 	double kP, kI, kD;
-	double integral;
-	double target;
+	Units<InputUnit::AnglePow, InputUnit::LengthPow, InputUnit::TimePow + 1, InputUnit::MassPow, InputUnit::CurrentPow> integral;
+	InputUnit target;
+	InputUnit lastError;
 
   public:
-	double lastError;
-	PIDController(const ControlSource<double>& source, const ControlOutput<double>& output, double kP, double kI, double kD)
-		: Controller(source, output), kP(kP), kI(kI), kD(kD)
+	PIDController(const ControlSource<InputUnit>& source, const ControlOutput<OutputUnit>& output, double kP, double kI, double kD)
+		: Controller<InputUnit, OutputUnit>(source, output), kP(kP), kI(kI), kD(kD)
 	{
-		integral = 0;
-		lastError = 0;
-		target = 0;
+		integral = InputUnit(0) * s;
+		lastError = InputUnit(0);
+		target = InputUnit(0);
 	};
 
-	void SetGoal(double target)
+	void SetGoal(InputUnit target)
 	{
 		this->target = target;
 	}
 
 	virtual ~PIDController();
-	virtual double Calculate(double input, Time dt) override;
+	virtual OutputUnit Calculate(InputUnit value, Time dt) override;
 	virtual bool IsFinished() override;
 };
+
+template <typename InputUnit, typename OutputUnit>
+PIDController<InputUnit, OutputUnit>::~PIDController()
+{
+	// TODO Auto-generated destructor stub
+}
+
+template <typename InputUnit, typename OutputUnit>
+OutputUnit PIDController<InputUnit, OutputUnit>::Calculate(InputUnit value, Time dt)
+{
+	InputUnit error = target - value;
+	integral += error * dt;
+	auto derivative = (error - lastError) / dt;
+	return error() * kP + integral() * kI + derivative() * kD;
+}
+
+template <typename InputUnit, typename OutputUnit>
+bool PIDController<InputUnit, OutputUnit>::IsFinished()
+{
+	return lastError < 1;
+}
 
 } /* namespace Citrus */
 

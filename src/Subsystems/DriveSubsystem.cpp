@@ -2,15 +2,16 @@
 #include "../RobotMap.h"
 #include <Commands/TeleopDriveCommand.h>
 
-DriveSubsystem::DriveSubsystem()
-	: Subsystem("DriveSubsystem"),
-	  drive(new RobotDrive(RobotMap::leftDrivePorts[0], RobotMap::leftDrivePorts[1], RobotMap::rightDrivePorts[0], RobotMap::rightDrivePorts[1]))
+DriveSubsystem::DriveSubsystem() : Subsystem("DriveSubsystem")
 {
-	shifting = new DoubleSolenoid(RobotMap::lowGear, RobotMap::highGear);
+	drive = std::unique_ptr<RobotDrive>(
+		new RobotDrive(RobotMap::leftDrivePorts[0], RobotMap::leftDrivePorts[1], RobotMap::rightDrivePorts[0], RobotMap::rightDrivePorts[1]));
 
-	encLeft = new Encoder(RobotMap::leftDriveEncoders[0], RobotMap::leftDriveEncoders[1]);
+	shifting = std::unique_ptr<DoubleSolenoid>(new DoubleSolenoid(RobotMap::lowGear, RobotMap::highGear));
 
-	encRight = new Encoder(RobotMap::rightDriveEncoders[0], RobotMap::rightDriveEncoders[1]);
+	encLeft = std::unique_ptr<Encoder>(new Encoder(RobotMap::leftDriveEncoders[0], RobotMap::leftDriveEncoders[1]));
+
+	encRight = std::unique_ptr<Encoder>(new Encoder(RobotMap::rightDriveEncoders[0], RobotMap::rightDriveEncoders[1]));
 }
 
 void DriveSubsystem::InitDefaultCommand()

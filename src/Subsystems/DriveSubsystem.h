@@ -9,8 +9,8 @@ class DriveSubsystem : public Subsystem
 {
   private:
 	std::unique_ptr<RobotDrive> drive;
-	DoubleSolenoid* shifting;
-	Encoder *encLeft, *encRight;
+	std::unique_ptr<DoubleSolenoid> shifting;
+	std::unique_ptr<Encoder> encLeft, encRight;
 	bool currentGear = false;
 
   public:
