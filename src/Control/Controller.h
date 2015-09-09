@@ -11,6 +11,7 @@
 #include "ControlSource.h"
 #include "ControlOutput.h"
 #include "../Utils/unitscpp.h"
+#include <memory>
 
 namespace Citrus
 {
@@ -18,11 +19,11 @@ namespace Citrus
 template <typename SourceType, typename OutputType>
 class Controller
 {
-	const ControlSource<SourceType>& source;
-	const ControlOutput<OutputType>& output;
+	std::shared_ptr<ControlSource<SourceType>> source;
+	std::shared_ptr<ControlOutput<OutputType>> output;
 
   public:
-	Controller(const ControlSource<SourceType>& source, const ControlOutput<OutputType>& output) : source(source), output(output)
+	Controller(std::shared_ptr<ControlSource<SourceType>> source, std::shared_ptr<ControlOutput<OutputType>> output) : source(source), output(output)
 	{
 	}
 	virtual ~Controller(){};
@@ -32,12 +33,12 @@ class Controller
 		OutputType actuatorValue = Calculate(sensorValue, dt);
 		output.set(actuatorValue);
 	}
-
-  protected:
-	virtual OutputType Calculate(SourceType input, Time dt) = 0;
 	virtual void Start(){};
 	virtual bool IsFinished() = 0;
 	virtual void Stop(){};
+
+  protected:
+	virtual OutputType Calculate(SourceType input, Time dt) = 0;
 };
 
 } /* namespace Citrus */

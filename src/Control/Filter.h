@@ -8,6 +8,8 @@
 #ifndef SRC_CONTROL_FILTER_H_
 #define SRC_CONTROL_FILTER_H_
 
+#include "../Utils/unitscpp.h"
+
 namespace Citrus
 {
 
@@ -17,7 +19,7 @@ class Filter
   public:
 	Filter();
 	virtual ~Filter();
-	virtual OutputType filter(InputType input) = 0;
+	virtual OutputType filter(InputType input) const = 0;
 };
 
 } /* namespace Citrus */

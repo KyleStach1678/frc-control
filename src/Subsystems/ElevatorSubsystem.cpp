@@ -3,11 +3,12 @@
 
 ElevatorSubsystem::ElevatorSubsystem() : Subsystem("ElevatorSubsystem")
 {
-	elevatorMotor = std::unique_ptr<VictorSP>(new VictorSP(RobotMap::elevatorMotor));
-	elevatorEncoder = std::unique_ptr<Encoder>(new Encoder(RobotMap::elevatorEncoders[0], RobotMap::elevatorEncoders[1]));
+	elevatorMotor = std::make_shared<Citrus::MotorControlOutput>(new VictorSP(RobotMap::elevatorMotor));
+	elevatorEncoder = std::make_shared<Citrus::EncoderControlSource>(new Encoder(RobotMap::elevatorEncoders[0], RobotMap::elevatorEncoders[1]));
 	hallSensor = std::unique_ptr<DigitalInput>(new DigitalInput(RobotMap::elevatorHallSensor));
 	bottomProx = std::unique_ptr<AnalogInput>(new AnalogInput(RobotMap::bottomElevatorProximity));
-	topProx = std::unique_ptr<AnalogInput>(new AnalogInput(RobotMap::topElevatorProximity));
+	topProx = std::make_unique<AnalogInput>(RobotMap::topElevatorProximity);
+	elevatorController = std::make_unique<Citrus::PIDController>(elevatorEncoder, elevatorMotor, .05, .001, .001);
 }
 
 void ElevatorSubsystem::InitDefaultCommand()
@@ -19,11 +20,13 @@ void ElevatorSubsystem::InitDefaultCommand()
 
 void ElevatorSubsystem::SetMotorsRaw(double value)
 {
-	elevatorMotor->Set(value);
+	elevatorMotor->set(value);
 }
 
 void ElevatorSubsystem::MoveToPosition(Length height)
 {
+	elevatorController->SetGoal((height / click)());
+	elevatorController->Start();
 }
 
 void ElevatorSubsystem::ZeroEncoder()

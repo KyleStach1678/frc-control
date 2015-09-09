@@ -4,15 +4,19 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include <Utils/unitscpp.h>
+#include "../Control/PIDController.h"
+#include "../Control/ControlSource.h"
+#include "../Control/ControlOutput.h"
 
 class ElevatorSubsystem : public Subsystem
 {
   private:
-	std::unique_ptr<VictorSP> elevatorMotor;
-	std::unique_ptr<Encoder> elevatorEncoder;
+	std::shared_ptr<Citrus::MotorControlOutput> elevatorMotor;
+	std::shared_ptr<Citrus::EncoderControlSource> elevatorEncoder;
 	std::unique_ptr<DigitalInput> hallSensor;
 	std::unique_ptr<AnalogInput> bottomProx;
 	std::unique_ptr<AnalogInput> topProx;
+	std::unique_ptr<Citrus::PIDController> elevatorController;
 
   public:
 	ElevatorSubsystem();

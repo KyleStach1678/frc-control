@@ -2,6 +2,7 @@
 
 Command* autonomousCommand;
 LiveWindow* lw;
+#include "Control/ControllerUpdater.h"
 
 void Robot::RobotInit()
 {
@@ -23,6 +24,7 @@ void Robot::AutonomousInit()
 void Robot::AutonomousPeriodic()
 {
 	Scheduler::GetInstance()->Run();
+	Citrus::ControllerUpdater::Update();
 }
 
 void Robot::TeleopInit()
@@ -38,6 +40,7 @@ void Robot::TeleopInit()
 void Robot::TeleopPeriodic()
 {
 	Scheduler::GetInstance()->Run();
+	Citrus::ControllerUpdater::Update();
 }
 
 void Robot::TestPeriodic()
