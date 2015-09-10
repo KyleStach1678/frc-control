@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -56,7 +57,11 @@ public class ElevatorSubsystem extends Subsystem {
 	 * Utilities - these functions perform trivial operations such as getting
 	 * and setting
 	 */
-
+	
+	public boolean isFinished() {
+		return positionController.isFinished();
+	}
+	
 	public void resetEncoderZero() {
 		heightEncoder.reset();
 	}

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1678.robot.commands.CalibrateElevatorCommand;
 import org.usfirst.frc.team1678.robot.commands.DriveDistanceCommand;
+import org.usfirst.frc.team1678.robot.control.ControlUpdater;
 import org.usfirst.frc.team1678.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1678.robot.subsystems.ElevatorSubsystem;
 
@@ -52,6 +53,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        ControlUpdater.update();
     }
 
     public void teleopInit() {
@@ -75,6 +77,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        ControlUpdater.update();
     }
     
     /**

@@ -81,7 +81,7 @@ public class StateSpaceController extends Controller<Matrix, Matrix> {
 	}
 
 	@Override
-	protected boolean isFinished() {
+	public boolean isFinished() {
 		// TODO Auto-generated method stub
 		return false;
 	}

@@ -39,5 +39,5 @@ public abstract class Controller<SourceType, OutputType> {
 	 * 
 	 * @return Whether or not the controller has finished
 	 */
-	protected abstract boolean isFinished();
+	public abstract boolean isFinished();
 }

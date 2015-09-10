@@ -19,7 +19,7 @@ public class PIDController extends Controller<Double, Double> {
 	}
 
 	@Override
-	protected boolean isFinished() {
+	public boolean isFinished() {
 		return Math.abs(last - goal) < tolerance;
 	}
 
