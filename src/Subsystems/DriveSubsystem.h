@@ -4,13 +4,14 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include <Utils/unitscpp.h>
+#include "../Control/ControlSource.h"
 
 class DriveSubsystem : public Subsystem
 {
   private:
-	std::unique_ptr<RobotDrive> drive;
-	std::unique_ptr<DoubleSolenoid> shifting;
-	std::unique_ptr<Encoder> encLeft, encRight;
+	std::shared_ptr<RobotDrive> drive;
+	std::shared_ptr<DoubleSolenoid> shifting;
+	std::shared_ptr<Citrus::EncoderControlSource> encLeft, encRight;
 	bool currentGear = false;
 
   public:

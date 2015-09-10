@@ -1,5 +1,14 @@
 format.sh
-read -p "Please enter the email to use for this commit: " email
+echo -e "Who are you?\n1. Kyle\n2. Finn\n3. Lucas\n4. Custom input"
+read -n1 option
+echo -e "\n"
+case $option in
+    1) email="kylestach99@gmail.com" ;;
+    2) email="finnegan.mccool@gmail.com" ;;
+    3) email="amannababanana@gmail.com" ;;
+    4) read -p "Enter email address: " email ;;
+    *) email="1678Programming@gmail.com" ;;
+esac
 git config --local user.email $email
 git add -A
 git commit

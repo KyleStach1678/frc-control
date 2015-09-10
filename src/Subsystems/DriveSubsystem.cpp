@@ -9,9 +9,9 @@ DriveSubsystem::DriveSubsystem() : Subsystem("DriveSubsystem")
 
 	shifting = std::unique_ptr<DoubleSolenoid>(new DoubleSolenoid(RobotMap::lowGear, RobotMap::highGear));
 
-	encLeft = std::unique_ptr<Encoder>(new Encoder(RobotMap::leftDriveEncoders[0], RobotMap::leftDriveEncoders[1]));
+	encLeft = std::make_unique<Citrus::EncoderControlSource>(new Encoder(RobotMap::leftDriveEncoders[0], RobotMap::leftDriveEncoders[1]));
 
-	encRight = std::unique_ptr<Encoder>(new Encoder(RobotMap::rightDriveEncoders[0], RobotMap::rightDriveEncoders[1]));
+	encRight = std::make_unique<Citrus::EncoderControlSource>(new Encoder(RobotMap::rightDriveEncoders[0], RobotMap::rightDriveEncoders[1]));
 }
 
 void DriveSubsystem::InitDefaultCommand()
@@ -39,10 +39,10 @@ bool DriveSubsystem::IsHighGear()
 
 Length DriveSubsystem::getLeftEncoderDistance()
 {
-	return encLeft->Get() * click;
+	return encLeft->Read() * click;
 }
 
 Length DriveSubsystem::getRightEncoderDistance()
 {
-	return encRight->Get() * click;
+	return encRight->Read() * click;
 }
