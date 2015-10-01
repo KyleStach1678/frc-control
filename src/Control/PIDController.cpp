@@ -24,17 +24,12 @@ PIDController::~PIDController()
 	// TODO Auto-generated destructor stub
 }
 
-void PIDController::SetGoal(double goal)
-{
-	this->goal = goal;
-}
-
 double PIDController::Calculate(double input, Time dt)
 {
 	double error = goal - input;
-	derivative = (error - proportional) / dt();
+	derivative = (error - proportional) / dt.to(s);
 	proportional = error;
-	integral += input * dt();
+	integral += input * dt.to(s);
 	return kP * proportional + kI * integral + kD * derivative;
 }
 

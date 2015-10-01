@@ -16,7 +16,7 @@ namespace Citrus
 typedef std::shared_ptr<ControlSource<double>> PIDSourcePtr;
 typedef std::shared_ptr<ControlOutput<double>> PIDOutputPtr;
 
-class PIDController : public Controller<double, double>
+class PIDController : public Controller<double, double, double>
 {
   public:
 	PIDController(PIDSourcePtr sensor, PIDOutputPtr actuator, double kP, double kI, double kD);
@@ -24,14 +24,12 @@ class PIDController : public Controller<double, double>
 	virtual void Start();
 	virtual bool IsFinished();
 	virtual void Stop();
-	void SetGoal(double goal);
 
   protected:
 	virtual double Calculate(double input, Time dt);
 	double proportional;
 	double integral;
 	double derivative;
-	double goal;
 	double kP, kI, kD;
 };
 

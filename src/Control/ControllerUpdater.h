@@ -16,32 +16,30 @@ namespace Citrus
 
 class ControllerUpdater
 {
-	static std::map<int, std::function<void(Time)>> controllers;
+	static std::list<Updateable*> controllers;
 
   public:
 	ControllerUpdater();
 	virtual ~ControllerUpdater();
-	template <typename in, typename out>
-	static int AddController(Citrus::Controller<in, out>* controller)
+	template <typename in, typename state, typename out>
+	static void AddController(Citrus::Controller<in, state, out>* controller)
 	{
-		int id = (int)controller;
-		controllers[id] = [&](Time dt) { controller->Update(dt); };
-		return id;
+		controllers.push_back(controller);
 	}
 	static void Update()
 	{
-		for (auto updateFunc : controllers) {
-			updateFunc.second(.05 * s);
+		for (auto controller : controllers) {
+			controller->Update(.05 * s);
 		}
 	}
-	template <typename in, typename out>
-	static void RemoveController(Citrus::Controller<in, out>* controller)
+	template <typename in, typename state, typename out>
+	static void RemoveController(Citrus::Controller<in, state, out>* controller)
 	{
-		controllers.erase(controllers.find((int)controller));
+		controllers.remove(controller);
 	}
 };
 
-std::map<int, std::function<void(Time)>> ControllerUpdater::controllers = std::map<int, std::function<void(Time)>>();
+std::list<Updateable*> ControllerUpdater::controllers;
 
 } /* namespace Citrus */
 

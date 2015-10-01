@@ -20,7 +20,7 @@ void ElevatorSubsystem::InitDefaultCommand()
 
 void ElevatorSubsystem::SetMotorsRaw(double value)
 {
-	elevatorMotor->set(value);
+	elevatorMotor->Set(value);
 }
 
 void ElevatorSubsystem::MoveToPosition(Length height)

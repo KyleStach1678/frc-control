@@ -18,7 +18,7 @@ class ControlOutput
 {
   public:
 	virtual ~ControlOutput(){};
-	virtual OutputType set(OutputType value) = 0;
+	virtual OutputType Set(OutputType value) = 0;
 };
 
 class MotorControlOutput : public ControlOutput<double>
@@ -32,7 +32,7 @@ class MotorControlOutput : public ControlOutput<double>
 	virtual ~MotorControlOutput()
 	{
 	}
-	virtual double set(double value) override
+	virtual double Set(double value) override
 	{
 		speedController->Set(value);
 		return value > 1 ? 1 : (value < -1 ? -1 : value);

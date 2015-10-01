@@ -15,7 +15,7 @@ namespace Citrus
 {
 
 template <int SensorSpace, int StateSpace, int OutputSpace>
-class StateSpaceController : public Controller<Vector<SensorSpace>, Vector<OutputSpace>>
+class StateSpaceController : public Controller<Vector<SensorSpace>, Vector<StateSpace>, Vector<OutputSpace>>
 {
 	Matrix<StateSpace, StateSpace> A;
 	Matrix<StateSpace, OutputSpace> B;
@@ -30,11 +30,6 @@ class StateSpaceController : public Controller<Vector<SensorSpace>, Vector<Outpu
   public:
 	StateSpaceController(ControlInput<Vector<SensorSpace>>& input, ControlOutput<Vector<OutputSpace>>& output) : Controller(input, output)
 	{
-	}
-
-	void SetGoal(Vector<StateSpace> goal)
-	{
-		this->goal = goal;
 	}
 
 	void SetGains(Matrix<StateSpace, StateSpace> A,

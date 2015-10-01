@@ -12,12 +12,13 @@
 #include "ControlOutput.h"
 #include "../Utils/unitscpp.h"
 #include <memory>
+#include "Updateable.h"
 
 namespace Citrus
 {
 
-template <typename SourceType, typename OutputType>
-class Controller
+template <typename SourceType, typename StateType, typename OutputType>
+class Controller : public Updateable
 {
 	std::shared_ptr<ControlSource<SourceType>> source;
 	std::shared_ptr<ControlOutput<OutputType>> output;
@@ -27,11 +28,15 @@ class Controller
 	{
 	}
 	virtual ~Controller(){};
-	void Update(Time dt)
+	virtual void Update(Time dt) override
 	{
-		SourceType sensorValue = source.read();
+		SourceType sensorValue = source->Read();
 		OutputType actuatorValue = Calculate(sensorValue, dt);
-		output.set(actuatorValue);
+		output->Set(actuatorValue);
+	}
+	void SetGoal(StateType goal)
+	{
+		this->goal = goal;
 	}
 	virtual void Start(){};
 	virtual bool IsFinished() = 0;
@@ -39,6 +44,7 @@ class Controller
 
   protected:
 	virtual OutputType Calculate(SourceType input, Time dt) = 0;
+	StateType goal;
 };
 
 } /* namespace Citrus */
