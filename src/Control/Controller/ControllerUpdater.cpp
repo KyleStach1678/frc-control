@@ -6,6 +6,7 @@
  */
 
 #include "ControllerUpdater.h"
+#include "WPILib.h"
 
 namespace Citrus
 {
@@ -14,6 +15,25 @@ ControllerUpdater* ControllerUpdater::instance = new ControllerUpdater();
 
 ControllerUpdater::ControllerUpdater()
 {
+	running = true;
+	runThread = std::thread([this]() {
+		Timer clock;
+		Time delay = 1 / tickRate;
+		while (running) {
+			Update();
+
+			// Ensure that the thread runs at a constant rate
+			if (clock.Get() < delay.to(s)) {
+				delaySeconds(delay.to(s) - clock.Get());
+			}
+			clock.Reset();
+		}
+	});
+}
+
+ControllerUpdater::~ControllerUpdater()
+{
+	Stop();
 }
 
 void ControllerUpdater::AddController(Updateable* controller)
@@ -36,8 +56,12 @@ void ControllerUpdater::Update()
 	}
 }
 
-ControllerUpdater::~ControllerUpdater()
+void ControllerUpdater::Stop()
 {
+	running = false;
+	if (runThread.joinable()) {
+		runThread.join();
+	}
 }
 
 ControllerUpdater* Citrus::ControllerUpdater::GetInstance()

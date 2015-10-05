@@ -10,15 +10,20 @@
 
 #include <Utils/Updateable.h>
 #include <list>
+#include <thread>
 #include <mutex>
+#include <atomic>
 
 namespace Citrus
 {
 
 class ControllerUpdater
 {
+	Frequency tickRate = 200 / s;
 	std::list<Updateable*> controllers;
 	std::mutex mutex;
+	std::atomic<bool> running;
+	std::thread runThread;
 
 	static ControllerUpdater* instance;
 
@@ -27,6 +32,7 @@ class ControllerUpdater
 	void AddController(Updateable* controller);
 	void Update();
 	void RemoveController(Updateable* controller);
+	void Stop();
 	virtual ~ControllerUpdater();
 
 	static ControllerUpdater* GetInstance();

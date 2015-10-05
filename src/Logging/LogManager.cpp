@@ -62,10 +62,7 @@ void LogManager::Stop()
 
 LogManager::~LogManager()
 {
-	running = false;
-	if (runThread.joinable()) {
-		runThread.join();
-	}
+	Stop();
 
 	for (auto pair : logs) {
 		delete pair.second;
