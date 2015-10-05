@@ -8,38 +8,29 @@
 #ifndef SRC_CONTROL_CONTROLLERUPDATER_H_
 #define SRC_CONTROL_CONTROLLERUPDATER_H_
 
-#include "Controller.h"
-#include <map>
+#include <Utils/Updateable.h>
+#include <list>
+#include <mutex>
 
 namespace Citrus
 {
 
 class ControllerUpdater
 {
-	static std::list<Updateable*> controllers;
+	std::list<Updateable*> controllers;
+	std::mutex mutex;
+
+	static ControllerUpdater* instance;
 
   public:
 	ControllerUpdater();
+	void AddController(Updateable* controller);
+	void Update();
+	void RemoveController(Updateable* controller);
 	virtual ~ControllerUpdater();
-	template <typename in, typename state, typename out>
-	static void AddController(Citrus::Controller<in, state, out>* controller)
-	{
-		controllers.push_back(controller);
-	}
-	static void Update()
-	{
-		for (auto controller : controllers) {
-			controller->Update(.05 * s);
-		}
-	}
-	template <typename in, typename state, typename out>
-	static void RemoveController(Citrus::Controller<in, state, out>* controller)
-	{
-		controllers.remove(controller);
-	}
-};
 
-std::list<Updateable*> ControllerUpdater::controllers;
+	static ControllerUpdater* GetInstance();
+};
 
 } /* namespace Citrus */
 

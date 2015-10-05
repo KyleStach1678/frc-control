@@ -17,6 +17,7 @@ class Updateable
 {
   public:
 	virtual void Update(Time dt) = 0;
+	virtual ~Updateable(){};
 };
 
 } /* namespace Citrus */

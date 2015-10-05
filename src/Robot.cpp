@@ -24,7 +24,7 @@ void Robot::AutonomousInit()
 void Robot::AutonomousPeriodic()
 {
 	Scheduler::GetInstance()->Run();
-	Citrus::ControllerUpdater::Update();
+	Citrus::ControllerUpdater::GetInstance()->Update();
 }
 
 void Robot::TeleopInit()
@@ -40,7 +40,7 @@ void Robot::TeleopInit()
 void Robot::TeleopPeriodic()
 {
 	Scheduler::GetInstance()->Run();
-	Citrus::ControllerUpdater::Update();
+	Citrus::ControllerUpdater::GetInstance()->Update();
 }
 
 void Robot::TestPeriodic()
