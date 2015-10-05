@@ -2,7 +2,7 @@
 
 Command* autonomousCommand;
 LiveWindow* lw;
-#include "Control/ControllerUpdater.h"
+#include <Control/Controller/ControllerUpdater.h>
 
 void Robot::RobotInit()
 {

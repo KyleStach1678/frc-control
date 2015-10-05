@@ -9,7 +9,7 @@
 #define SRC_CONTROL_CONTROLSOURCE_H_
 
 #include "WPILib.h"
-#include "Filter.h"
+#include "../Filter.h"
 
 namespace Citrus
 {

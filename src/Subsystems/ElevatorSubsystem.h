@@ -4,9 +4,9 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include <Utils/unitscpp.h>
-#include "../Control/PIDController.h"
-#include "../Control/ControlSource.h"
-#include "../Control/ControlOutput.h"
+#include <Control/Controller/PIDController.h>
+#include <Control/Controller/ControlSource.h>
+#include <Control/Controller/ControlOutput.h>
 
 class ElevatorSubsystem : public Subsystem
 {

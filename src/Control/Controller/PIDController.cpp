@@ -5,7 +5,7 @@
  *      Author: Kyle
  */
 
-#include <Control/PIDController.h>
+#include "PIDController.h"
 
 namespace Citrus
 {

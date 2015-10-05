@@ -19,7 +19,7 @@ Log::Log(std::string name, std::string extension)
 {
 	this->name = name;
 	std::call_once(folderCreated, [=]() {
-		mkdir(folderPath.c_str());
+		mkdir(folderPath.c_str(), 0777);
 		chmod(folderPath.c_str(), 0777);
 	});
 

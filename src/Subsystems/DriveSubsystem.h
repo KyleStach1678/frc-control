@@ -4,7 +4,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include <Utils/unitscpp.h>
-#include "../Control/ControlSource.h"
+#include <Control/Controller/ControlSource.h>
 
 class DriveSubsystem : public Subsystem
 {
