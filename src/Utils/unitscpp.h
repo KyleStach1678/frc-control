@@ -267,6 +267,7 @@ typedef Units<0, -1, -2, 1, 0> Stress;
 typedef Units<0, 2, -2, 1, 0> Energy;
 typedef Units<0, 0, -1, 0, 0> Frequency;
 typedef Units<0, 2, -3, 1, -1> Voltage;
+typedef Units<0, 0, 0, 0, 0> Unitless;
 
 // Unit constants
 const double pi = 3.14159265358;
@@ -291,5 +292,6 @@ const Length robotWidth = 1.5 * ft;
 const Velocity maxHighRobotSpeed = 15 * ft / s;
 const Velocity maxLowRobotSpeed = 5 * ft / s;
 const AngularVelocity maxHighRobotAngularVelocity = 2 * maxHighRobotSpeed / (robotWidth / 2) * rad;
+const Unitless none = 1;
 
 #endif //#ifndef unitscpp_h
