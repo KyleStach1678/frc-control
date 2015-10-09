@@ -23,6 +23,10 @@ TextLog::~TextLog()
 	// TODO Auto-generated destructor stub
 }
 
+/**
+ * Write a message to the log with a tag.
+ * Syntax: Write("My message.", "TAG", CODE_STAMP)
+ */
 void TextLog::Write(std::string message, std::string category, std::string codeStamp)
 {
 	std::string fullMessage = "[" + category + "@" + Log::GetTimeString() + "] " + message + codeStamp + " in thread ";
