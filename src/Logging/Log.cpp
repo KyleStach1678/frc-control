@@ -34,6 +34,9 @@ Log::~Log()
 	file.close();
 }
 
+/**
+ * Gets a srting with the date in the format YYYY-MM-DD_HH-MM-SS
+ */
 std::string Log::GetDateString()
 {
 	time_t rawtime;
@@ -45,6 +48,9 @@ std::string Log::GetDateString()
 	return buffer;
 }
 
+/**
+ * Gets a srting with the time in the format HH-MM-SS
+ */
 std::string Log::GetTimeString()
 {
 	time_t rawtime;
