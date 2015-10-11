@@ -36,16 +36,21 @@ double PIDController::Calculate(double input, Time dt)
 void PIDController::Start()
 {
 	Controller::Start();
+	proportional = 0;
+	integral = 0;
+	derivative = 0;
+	goal = 0;
 }
 
 bool PIDController::IsFinished()
 {
-	return false;
+	// TODO check if abs(proportional) < a margin
+	return proportional == 0.0;
 }
 
 void PIDController::Stop()
 {
-	Controller::Start();
+	Controller::Stop();
 }
 
 } /* namespace Citrus */

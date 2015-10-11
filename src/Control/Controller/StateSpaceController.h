@@ -8,12 +8,18 @@
 #ifndef SRC_CONTROL_STATESPACECONTROLLER_H_
 #define SRC_CONTROL_STATESPACECONTROLLER_H_
 
-#include <Control/Controller.h>
+#include "Controller.h"
 #include <Utils/Matrix.h>
 
 namespace Citrus
 {
 
+/**
+ * An implementation of Controller that uses state space feedback control and an estimator.
+ * @tparam SensorSpace the size of the sensor(y) vector.
+ * @tparam StateSpace the size of the state(x) vector.
+ * @tparam OutputSpace the size of the output(u) vector.
+ */
 template <int SensorSpace, int StateSpace, int OutputSpace>
 class StateSpaceController : public Controller<Vector<SensorSpace>, Vector<StateSpace>, Vector<OutputSpace>>
 {
@@ -32,6 +38,14 @@ class StateSpaceController : public Controller<Vector<SensorSpace>, Vector<State
 	{
 	}
 
+	/**
+	 * Set the controller's gain matrices
+	 * @param A the matrix representing unforced system dynamics
+	 * @param B the matrix representing the effect of control output on the state
+	 * @param C the matrix representing how state variables are translated into sensor values
+	 * @param K the matrix used to calculate control outputs
+	 * @param L the estimation matrix
+	 */
 	void SetGains(Matrix<StateSpace, StateSpace> A,
 				  Matrix<StateSpace, OutputSpace> B,
 				  Matrix<SensorSpace, StateSpace> C,

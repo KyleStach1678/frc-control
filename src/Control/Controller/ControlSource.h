@@ -17,6 +17,10 @@ namespace Citrus
 template <typename OutputSourceType, typename InputSourceType = OutputSourceType>
 class FilteredControlSource;
 
+/**
+ * An interface to a sensor.
+ * @tparam SourceType the type of value that the sensor returns
+ */
 template <typename SourceType>
 class ControlSource
 {
@@ -24,6 +28,12 @@ class ControlSource
 	ControlSource(){};
 	virtual ~ControlSource(){};
 	virtual SourceType Read() = 0;
+
+	/**
+	 * Filter the source by sending it through a filter
+	 * @param filter the filter to pipe values through
+	 * @return The filtered source
+	 */
 	template <typename NewSourceType>
 	FilteredControlSource<NewSourceType, SourceType> filter(Filter<SourceType, NewSourceType>& filter) const
 	{

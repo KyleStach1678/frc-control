@@ -16,6 +16,9 @@ namespace Citrus
 typedef std::shared_ptr<ControlSource<double>> PIDSourcePtr;
 typedef std::shared_ptr<ControlOutput<double>> PIDOutputPtr;
 
+/**
+ * An implementation of Controller that uses Proportional-Integral-Derivative feedback control.
+ */
 class PIDController : public Controller<double, double, double>
 {
   public:

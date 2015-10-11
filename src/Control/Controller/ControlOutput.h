@@ -13,6 +13,10 @@
 namespace Citrus
 {
 
+/**
+ * An interface to an actuator.
+ * @tparam OutputType the type of value that the actuator accepts
+ */
 template <typename OutputType>
 class ControlOutput
 {
@@ -21,6 +25,9 @@ class ControlOutput
 	virtual OutputType Set(OutputType value) = 0;
 };
 
+/**
+ * An output that controls a speed controller
+ */
 class MotorControlOutput : public ControlOutput<double>
 {
 	std::unique_ptr<VictorSP> speedController;
